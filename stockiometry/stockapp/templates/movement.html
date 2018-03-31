@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <center>
+
+
+    <h2 style="padding-bottom:20px"> Get Stock Price Movement </h2>
+    <form action="" method="get" class="sidebar-form" style="margin-left:50px;margin-right:50px;margin-bottom:50px">
+      <div class="input-group" >
+        <input type="text" name="q" class="form-control" placeholder="Enter the company symbol to know the stock price movement for...."></input>
+            <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+      </div>
+
+
+    </center>
+
+    <center>
+    {% if registered == 1 %}
+
+    <div style="margin-left:50px;margin-right:50px">
+      <div class="box box-info" >
+        <div class="box-header with-border">
+          <h3 class="box-title"><b>Predicted Details</b></h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="table-responsive">
+            <table class="table no-margin">
+              <thead>
+                <tr>
+                  <td><b>Stock Symbol</b></td>
+                  <td>{{dictionary.c_symbol}}</td>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Stock Name</b></td>
+                  <td>{{dictionary.c_name}}</td>
+
+                </tr>
+
+                <tr>
+                  <td><b>Primary Exchange of the Stock <b></td>
+                  <td>{{dictionary.c_primary}}</td>
+
+                </tr>
+
+                <tr>
+                  <td><b>Predicted Label<b></td>
+            {% if dictionary.c_label == '1' %}
+                  <td> It is advised to buy {{dictionary.c_name}} stocks </td>
+            {% else %}
+
+                  <td> It is advised to sell  {{dictionary.c_name}} stocks</td>
+
+            {%endif%}
+
+              </tr>
+
+
+
+
+            </tbody>
+          </table>
+        </div>
+    <!-- /.table-responsive -->
+      </div>
+
+      </div>
+      </div>
+    {% endif %}
+
+  </center>
+
+
+{% endblock content %}

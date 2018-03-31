@@ -98,7 +98,7 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          
+
         </ul>
       </div>
     </nav>
@@ -115,9 +115,7 @@
 
 
       </div>
-      <!-- search form -->
 
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
@@ -129,8 +127,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Real Time Stock Quotes</a></li>
-            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Stock Detail View</a></li>
+            <li><a href="{% url 'stockapp:real' %}"><i class="fa fa-circle-o"></i> Real Time Stock Quotes</a></li>
+            <li><a href="{% url 'stockapp:detailed' %}"><i class="fa fa-circle-o"></i> Stock Detail View</a></li>
           </ul>
         </li>
 
@@ -159,7 +157,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../UI/general.html"><i class="fa fa-circle-o"></i> Logistic Regression</a></li>
+            <li><a href="{% url 'stockapp:movement' %}"><i class="fa fa-circle-o"></i> Stock Price Movement</a></li>
             <li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Recurrent Neural Nets</a></li>
             <li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Random Forest</a></li>
 
@@ -197,6 +195,8 @@
     <!-- Content Header (Page header) -->
 
     {% block content %}
+
+
     <section class="content-header">
       <h1>
         Fixed Layout
@@ -466,5 +466,11 @@
 <script src="{% static "front_end_files/dist/js/adminlte.min.js" %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static "front_end_files/dist/js/demo.js" %}"></script>
+
+<script >
+
+// setTimeout(function() { window.location=window.location;},5000);
+
+</script>
 </body>
 </html>

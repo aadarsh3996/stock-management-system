@@ -16,7 +16,12 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ACCOUNT_TEMPLATES_DIR=os.path.join(BASE_DIR,'account')
 STOCKAPP_TEMPLATES_DIR=os.path.join(BASE_DIR,'stockapp')
+
+
 STATIC_DIR=os.path.join(BASE_DIR,'static')
+
+
+
 
 
 
@@ -29,7 +34,7 @@ SECRET_KEY = '7(v2y(9l%nhpi$$!+t37bwtam^00#exq8e!988+3qxt&@q+g5v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.22','localhost']
 
 
 # Application definition

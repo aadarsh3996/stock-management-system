@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+    <h2 style="padding-bottom:20px"> Get Stock Quotes </h2>
+    <form action="" method="get" class="sidebar-form" style="margin-left:50px;margin-right:50px;margin-bottom:50px">
+      <div class="input-group" >
+        <input type="text" name="q" class="form-control" placeholder="Search..."></input>
+            <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+      </div>
+    </form>
+
+
+
+    {% if registered == 1 %}
+
+      <div style="margin-left:50px;margin-right:50px">
+    <div class="box box-info" >
+      <div class="box-header with-border">
+        <h3 class="box-title">Real Time Stock Quotes</h3>
+
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <div class="table-responsive">
+          <table class="table no-margin">
+            <thead>
+            <tr>
+              <th>Stock Symbol</th>
+              <th>Company Name</th>
+              <th>Company Sector</th>
+              <th>Stock Price</th>
+            </tr>
+            </thead>
+            <tbody>
+          {% for i,j in stocks_dict.items %}
+            <tr>
+              <td><a href="pages/examples/invoice.html">{{i}}</a></td>
+
+
+                        <td>{{j.quote.companyName}}</td>
+                      
+
+
+                        <td><span class="label label-success">{{ j.quote.sector }}</span></td>
+
+
+
+                        <td>
+                          <div class="sparkbar" data-color="#00a65a" data-height="20">{{ j.quote.latestPrice }}</div>
+                        </td>
+
+
+
+              </tr>
+          {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+        <!-- /.table-responsive -->
+      </div>
+
+    </div>
+  </div>
+
+    {% endif %}
+</center>
+
+{% endblock content %}

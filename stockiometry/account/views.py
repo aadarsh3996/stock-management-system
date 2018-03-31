@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -65,7 +66,7 @@ def user_login(request):
 
                 login(request,user)
 
-                return HttpResponseRedirect("/home/")
+                return HttpResponseRedirect(reverse('stockapp:home'))
             else:
 
                 return HttpResponse("Your account is not active.")

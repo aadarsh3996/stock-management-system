@@ -21,6 +21,7 @@ from django.conf.urls import url,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^',include('account.urls'))
+    url(r'^',include('account.urls')),
+    url(r'^',include('stockapp.urls',namespace='stockapp'))
 
 ]
