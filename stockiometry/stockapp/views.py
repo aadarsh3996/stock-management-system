@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Q
-from stockapp.models import CompanyList
+from stockapp.models import CompanyList,Order,Track
 import json
 import requests
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -14,10 +15,125 @@ app_name='stockapp'
 def detailed(request):
 
     print('hi')
+    print(request.session.get('username'))
     return render(request,'templates/detailed.html')
+
+def buy(request):
+
+    print('hi')
+    print(request.session.get('username'))
+
+
+
+
+    company_list = CompanyList.objects.all()
+    print(len(company_list))
+
+    #print(company_list[0].company_name)
+
+    query=request.GET.get('q')
+
+    if query is None:
+        query = request.GET.get('quantity')
+    print(request.GET)
+
+    registered = 0
+
+    temp=0
+
+    stock_dict=None
+
+    if query is not None:
+        print('bitch')
+        if  'q' in request.GET.keys():
+            print('hello')
+
+            print(query)
+
+            company_object = CompanyList.objects.filter(company_name=query).first()
+            symbol = company_object.company_symbol
+            url = "https://api.iextrading.com/1.0/stock/"+symbol+"/quote"
+
+
+            resp = requests.get(url)
+            print(resp.json())
+
+            stock_dict = resp.json()
+
+            registered = 1
+
+            temp = 1
+
+        if 'quantity' in request.GET.keys():
+            print('inside second form')
+            username = request.session['username']
+            bs = "BUY"
+            sname= request.GET.get('name')
+            ssymbol = request.GET.get('symbol')
+            sprice = request.GET.get('price')
+            squantity = request.GET.get('quantity')
+            print(int(float(sprice)))
+            print(username)
+            total_worth = int(float(sprice)) * int(squantity)
+            print(total_worth)
+
+            c_order = Order(username=username,bs=bs,sname=sname,sprice=sprice,squantity=squantity,ssymbol=ssymbol,total_worth=str(total_worth))
+            c_order.save()
+
+            c_track = Track(username=username,squantity=squantity,ssymbol=ssymbol,sname=sname)
+            c_track.save()
+
+
+    return render(request,'templates/buy.html',{"company_list":company_list,"stock_dict":stock_dict,"registered": registered,"temp":temp})
+
+def sell(request):
+
+    print(request.session.get('username'))
+    print('hi')
+    return render(request,'templates/sell.html')
+
+
+
+
+def forest(request):
+
+    stock_dict = None
+    company_list = CompanyList.objects.all()
+    print(len(company_list))
+
+    registered = 0
+
+    #print(company_list[0].company_name)
+
+    query=request.GET.get('q')
+
+    if query is not None:
+        registered = 1
+        random_forest_url= "http://127.0.0.1:8500/forest?symbol="
+
+        company_object = CompanyList.objects.filter(company_name=query).first()
+        symbol = company_object.company_symbol
+        random_forest_url = random_forest_url + symbol
+
+        resp = requests.get(random_forest_url)
+        print(resp.json())
+
+        stock_dict = resp.json()
+
+
+
+    return render(request,'templates/forest.html',{"company_list":company_list,"registered": registered,"dictionary":stock_dict})
+
+
+
+
+
+
 
 
 def movement(request):
+
+    print(request.session.get('username'))
 
     logistic_regression_url="http://127.0.0.1:8500/logistics?symbol="
 
@@ -31,7 +147,7 @@ def movement(request):
 
     query=request.GET.get('q')
 
-    print(query)
+    #print(query)
 
     if query is not None:
         logistic_regression_url=logistic_regression_url+query
@@ -65,6 +181,8 @@ def movement(request):
 def home(request):
 
     batch_quotes_url="https://api.iextrading.com/1.0//stock/market/batch?symbols="
+
+    print(request.session.get('username'))
 
     stocks_dict=None
     registered=0
@@ -129,3 +247,12 @@ def home(request):
         #             print(m,l[m],sep=" ")
 
     return render(request,'templates/home.html',{'registered':registered, 'stocks_dict' : stocks_dict})
+
+def user_logout(request):
+
+    print('logout')
+    print(request.session.get('username'))
+    request.session.clear()
+    logout(request)
+    print(request.session.get('username'))
+    return render(request,"templates/logout.html")

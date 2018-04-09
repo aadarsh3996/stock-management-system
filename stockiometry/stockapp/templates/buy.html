@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2> </h2>
+
+<div style="margin-left:50px;margin-right:50px">
+  <div class="box box-info" >
+    <div class="box-header with-border">
+      <h3 class="box-title">Search the company name to buy stocks</h3>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <center>
+    <div class="box-body">
+      <div class="row">
+
+          <div class="form-group" style="margin-left:50px;margin-right:50px;">
+            <label>  </label>
+            <form action="" method="get"  style="margin-left:50px;margin-right:50px;">
+              <div class="input-group" style="width: 100%;">
+                <select class="form-control select2" name = "q" >
+
+                  {% for company in company_list %}
+
+                  <option>{{ company.company_name }}</option>
+
+                  {% endfor %}
+                </select>
+                <input type ="submit" class="btn btn-block btn-primary" style= "width:10%;margin-top:50px">
+              </div>
+              </form>
+            </div>
+      </div>
+    </div>
+  </center>
+
+
+  </div>
+</div>
+
+{% if temp == 1 %}
+<div style="margin-left:50px;margin-right:50px">
+  <div class="box box-info" >
+    <div class="box-header with-border">
+      <center><h3 class="box-title">Stock Details</h3></center>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+
+
+    <div class="box-body">
+      <div class="row">
+        <div class="form-group" style="margin-left:50px;margin-right:50px;">
+          <label>  </label>
+          <form action="" method="get"  style="margin-left:50px;margin-right:50px;">
+            <div class="input-group" style="width: 100%;">
+
+              <label for="cname">Company Name</label><br>
+              <input type="text" class="form-control" value="{{ stock_dict.companyName}}" disabled >
+
+              <label for="csymbol">Company Symbol</label><br>
+              <input type="text"  class="form-control" value="{{ stock_dict.symbol}}"  disabled >
+
+              <label for="cexchange">Company exchange</label><br>
+              <input type="text" class="form-control" value="{{ stock_dict.primaryExchange}}"  disabled >
+
+              <label for="cprice">Company Stock Price</label><br>
+              <input type="text"  class="form-control"  value= "{{ stock_dict.latestPrice}}" disabled  >
+
+              
+              <input type="hidden" name="name" class="form-control" value="{{ stock_dict.companyName}}"  >
+
+              
+              <input type="hidden" name="symbol" class="form-control" value="{{ stock_dict.symbol}}"   >
+
+              
+              <input type="hidden" name = "exchange"class="form-control" value="{{ stock_dict.primaryExchange}}"   >
+
+              
+              <input type="hidden" name="price" class="form-control"  value= "{{ stock_dict.latestPrice}}"  >
+
+              <label for="cquantity">Number of stocks to buy</label><br>
+              <input type="number" class="form-control" name="quantity"   placeholder="Enter The stock quantity to buy">
+
+              <input type ="submit" value="Buy stock" class="btn btn-block btn-primary" style= "width:10%;margin-top:50px">
+
+
+            </div>
+          </form>
+          </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+{% endif %}
+
+
+
+
+
+
+
+{% endblock content %}

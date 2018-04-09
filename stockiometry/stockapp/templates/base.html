@@ -19,6 +19,9 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{% static "front_end_files/dist/css/skins/_all-skins.min.css" %}">
 
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{% static "front_end_files/bower_components/select2/dist/css/select2.min.css" %}">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -92,7 +95,7 @@
               <li class="user-footer">
 
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{% url 'stockapp:user_logout' %}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -142,8 +145,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> Buy Stocks</a></li>
-            <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Sell Stocks</a></li>
+            <li><a href="{% url 'stockapp:buy' %}"><i class="fa fa-circle-o"></i> Buy Stocks</a></li>
+            <li><a href="{% url 'stockapp:sell' %}"><i class="fa fa-circle-o"></i> Sell Stocks</a></li>
             <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> My Orders</a></li>
 
           </ul>
@@ -159,7 +162,7 @@
           <ul class="treeview-menu">
             <li><a href="{% url 'stockapp:movement' %}"><i class="fa fa-circle-o"></i> Stock Price Movement</a></li>
             <li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Recurrent Neural Nets</a></li>
-            <li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Random Forest</a></li>
+            <li><a href="{% url 'stockapp:forest' %}"><i class="fa fa-circle-o"></i> Random Forest</a></li>
 
           </ul>
         </li>
@@ -467,9 +470,17 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{% static "front_end_files/dist/js/demo.js" %}"></script>
 
+<script src="{% static "front_end_files/bower_components/select2/dist/js/select2.full.min.js" %} "></script>
+
 <script >
 
 // setTimeout(function() { window.location=window.location;},5000);
+
+$(function () {
+
+$('.select2').select2()
+
+})
 
 </script>
 </body>

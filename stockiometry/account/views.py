@@ -49,6 +49,8 @@ def user_register(request):
                            'registered':registered})
 
 
+
+
 def user_login(request):
 
     if request.method == 'POST':
@@ -59,10 +61,16 @@ def user_login(request):
 
         user = authenticate(username=username, password=password)
 
+        request.session['username'] = username
+
 
         if user:
 
             if user.is_active:
+
+                request.session['username'] = username
+
+                print(request.session['username'])
 
                 login(request,user)
 
