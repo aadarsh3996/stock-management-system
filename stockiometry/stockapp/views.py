@@ -14,9 +14,67 @@ app_name='stockapp'
 #/stock/market/batch?symbols=aapl,fb,tsla&types=quote,news,chart&range=1m&last=5
 def detailed(request):
 
+    quote= None
+    news= None
+    peers= None
+    logo= None
+    stats= None
+    financials= None
+    company= None
+    competitors = None
+
+
+    registered = 0
+
     print('hi')
     print(request.session.get('username'))
-    return render(request,'templates/detailed.html')
+
+    company_list = CompanyList.objects.all()
+    print(len(company_list))
+
+    query=request.GET.get('q')
+
+    if query is not None:
+
+        company_object = CompanyList.objects.filter(company_name=query).first()
+        symbol = company_object.company_symbol
+
+        url = "https://api.iextrading.com/1.0/stock/" + symbol + "/batch?types=quote,news,peers,logo,stats,financials,company"
+        registered=1
+
+        resp = requests.get(url)
+
+        detail_dict = resp.json()
+
+        quote= detail_dict.get("quote")
+        news= detail_dict.get("news")
+        peers= detail_dict.get("peers")
+        logo= detail_dict.get("logo")
+        stats= detail_dict.get("stats")
+        financials= detail_dict.get("financials")
+        company= detail_dict.get("company")
+
+        # print(quote)
+        # print(news)
+        # print(peers)
+        # print(logo)
+        # print(stats)
+        # print(financials)
+        # print(company)
+
+        competitors =[]
+
+        for x in peers:
+            company_object = CompanyList.objects.filter(company_symbol=x).first()
+            if company_object is not None:
+                competitors.append(company_object.company_name)
+
+        print(competitors)
+
+        # print(resp.json())
+
+
+    return render(request,'templates/detailed.html',{'company_list':company_list,'quote':quote,'news':news,'logo':logo,'stats':stats,'financials':financials,'company':company,'competitors':competitors,'registered':registered})
 
 def buy(request):
 
@@ -95,34 +153,6 @@ def sell(request):
 
 
 
-def forest(request):
-
-    stock_dict = None
-    company_list = CompanyList.objects.all()
-    print(len(company_list))
-
-    registered = 0
-
-    #print(company_list[0].company_name)
-
-    query=request.GET.get('q')
-
-    if query is not None:
-        registered = 1
-        random_forest_url= "http://127.0.0.1:8500/forest?symbol="
-
-        company_object = CompanyList.objects.filter(company_name=query).first()
-        symbol = company_object.company_symbol
-        random_forest_url = random_forest_url + symbol
-
-        resp = requests.get(random_forest_url)
-        print(resp.json())
-
-        stock_dict = resp.json()
-
-
-
-    return render(request,'templates/forest.html',{"company_list":company_list,"registered": registered,"dictionary":stock_dict})
 
 
 
@@ -174,6 +204,61 @@ def movement(request):
 
 
     return render(request,'templates/movement.html',{'registered':registered, 'dictionary' : dictionary})
+
+def forest(request):
+
+    stock_dict = None
+    company_list = CompanyList.objects.all()
+    print(len(company_list))
+
+    registered = 0
+
+    #print(company_list[0].company_name)
+
+    query=request.GET.get('q')
+
+    if query is not None:
+        registered = 1
+        random_forest_url= "http://127.0.0.1:8500/forest?symbol="
+
+        company_object = CompanyList.objects.filter(company_name=query).first()
+        symbol = company_object.company_symbol
+        random_forest_url = random_forest_url + symbol
+
+        resp = requests.get(random_forest_url)
+        print(resp.json())
+
+        stock_dict = resp.json()
+
+
+
+    return render(request,'templates/forest.html',{"company_list":company_list,"registered": registered,"dictionary":stock_dict})
+
+
+def deep(request):
+    stock_dict = None
+    company_list = CompanyList.objects.all()
+    print(len(company_list))
+
+    registered = 0
+
+    query=request.GET.get('q')
+
+    if query is not None:
+        registered = 1
+        deep_learning_url="http://127.0.0.1:8500/deep?symbol="
+        company_object = CompanyList.objects.filter(company_name=query).first()
+        symbol = company_object.company_symbol
+        deep_learning_url=deep_learning_url+symbol
+        print(deep_learning_url)
+
+        resp = requests.get(deep_learning_url)
+        print(resp.json())
+
+        stock_dict = resp.json()
+
+
+    return render(request,'templates/deep.html',{"company_list":company_list,"registered": registered,"dictionary":stock_dict})
 
 
 

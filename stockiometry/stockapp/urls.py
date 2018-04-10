@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf.urls import url,include
 from stockapp import views
-from stockapp.views import detailed,movement,buy,sell,forest
+from stockapp.views import detailed,movement,buy,sell,forest,deep
 import stockapp.views
 
 app_name='stockapp'
@@ -14,6 +14,7 @@ urlpatterns=[
 
     url(r'^movement/',movement,name='movement'),
     url(r'^forest/',forest,name='forest'),
+    url(r'^deep_learning/',deep,name='deep'),
 
     url(r'^buy/',buy,name='buy'),
     url(r'^sell/',sell,name='sell'),

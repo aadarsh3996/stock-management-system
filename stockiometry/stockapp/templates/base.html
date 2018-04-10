@@ -78,7 +78,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">Logout</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -86,7 +86,7 @@
 
 
                 <p>
-                  Alexander Pierce
+                  Logout Here
                 </p>
               </li>
               <!-- Menu Body -->
@@ -161,30 +161,18 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{% url 'stockapp:movement' %}"><i class="fa fa-circle-o"></i> Stock Price Movement</a></li>
-            <li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Recurrent Neural Nets</a></li>
+            <li><a href="{% url 'stockapp:deep' %}"><i class="fa fa-circle-o"></i> LSTM Neural Nets</a></li>
             <li><a href="{% url 'stockapp:forest' %}"><i class="fa fa-circle-o"></i> Random Forest</a></li>
 
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Technical Indicators</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-            <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-            <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-          </ul>
-        </li>
 
 
 
 
 
-        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>My Dashboard</span></a></li>
+
+
 
       </ul>
     </section>
